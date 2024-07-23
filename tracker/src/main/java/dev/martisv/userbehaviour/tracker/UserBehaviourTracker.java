@@ -4,6 +4,7 @@ import android.app.Application;
 import android.view.View;
 
 import dev.martisv.userbehaviour.tracker.data.dataprovider.click.MutliTouchEventHandler;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.click.UserClickHandler;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.MetaDictionary;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorDataProvider;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement.ViewElementsDataProvider;

@@ -4,7 +4,7 @@ import android.util.Log;
 
 import java.util.List;
 
-import dev.martisv.userbehaviour.tracker.TouchCoordinates;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.click.TouchCoordinates;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorData;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement.ViewElement;
 import dev.martisv.userbehaviour.tracker.data.saver.dto.ScreenSnapshotDto;

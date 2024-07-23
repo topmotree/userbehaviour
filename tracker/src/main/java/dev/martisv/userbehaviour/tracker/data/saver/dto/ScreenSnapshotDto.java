@@ -6,12 +6,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import dev.martisv.userbehaviour.tracker.TouchCoordinates;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.click.TouchCoordinates;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorData;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement.ViewElement;
 

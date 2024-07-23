@@ -1,9 +1,4 @@
-package dev.martisv.userbehaviour.tracker;
-
-import android.util.Log;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+package dev.martisv.userbehaviour.tracker.data.dataprovider.click;
 
 public class TouchCoordinates {
     private int x;

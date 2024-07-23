@@ -1,6 +1,5 @@
-package dev.martisv.userbehaviour.tracker;
+package dev.martisv.userbehaviour.tracker.data.dataprovider.click;
 
-import dev.martisv.userbehaviour.tracker.data.dataprovider.click.ClickEventHandler;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorData;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorDataProvider;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement.ViewElement;

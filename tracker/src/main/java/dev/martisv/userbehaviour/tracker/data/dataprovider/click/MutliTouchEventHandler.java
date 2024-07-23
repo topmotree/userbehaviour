@@ -2,12 +2,9 @@ package dev.martisv.userbehaviour.tracker.data.dataprovider.click;
 
 import android.content.Context;
 import android.graphics.PointF;
-import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
-
-import dev.martisv.userbehaviour.tracker.TouchCoordinates;
 
 public class MutliTouchEventHandler {
     private final int clickActionThreshold;
