@@ -6,25 +6,32 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class ViewElementsDataProvider {
-    private ViewElement curentViewElement;
-    private Context context;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.MetaDictionary;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.ViewMetaProperty;
 
-    public ViewElementsDataProvider(Context context) {
+public class ViewElementsDataProvider {
+    private final Context context;
+    private final MetaDictionary metaDictionary;
+
+    private ViewElement curentViewElement;
+
+    //TODO how to handle situations in JAVA when MetaDictionary is not provided??
+    public ViewElementsDataProvider(Context context, MetaDictionary metaDictionary) {
         this.context = context;
+        this.metaDictionary = metaDictionary;
     }
 
     public void saveViewInfo(View view) {
-        curentViewElement = fromView(context, view);
+        curentViewElement = fromView(view);
 
         //TODO remove log
         Log.d("ViewMapDataProvider", curentViewElement.toString());
     }
 
-    //TODO add MetaDictionary to get meta information about view
-    private ViewElement fromView(Context context, View view) {
+    private ViewElement fromView(View view) {
         int id = view.getId();
         String type = view.getClass().getSimpleName();
 
@@ -39,18 +46,23 @@ public class ViewElementsDataProvider {
         int height = view.getHeight();
         boolean isViewGroup = view instanceof ViewGroup;
 
+        List<ViewMetaProperty> metaProperties = Collections.emptyList();
+        if (metaDictionary != null) {
+            metaProperties = metaDictionary.get(id);
+        }
+
         List<ViewElement> childElements = null;
         if (isViewGroup) {
             ViewGroup viewGroup = (ViewGroup) view;
             childElements = new ArrayList<>();
             for (int i = 0; i < viewGroup.getChildCount(); i++) {
                 View childView = viewGroup.getChildAt(i);
-                ViewElement childElement = fromView(context, childView);
+                ViewElement childElement = fromView(childView);
                 childElements.add(childElement);
             }
         }
 
-        return new ViewElement(id, elementId, type, x, y, width, height, isViewGroup, childElements);
+        return new ViewElement(id, elementId, type, x, y, width, height, isViewGroup, metaProperties, childElements);
     }
 
     String getElementId(int id, String type, int x, int y) {

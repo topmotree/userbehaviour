@@ -3,6 +3,7 @@ package dev.martisv.userbehaviour.tracker;
 import android.app.Application;
 import android.view.View;
 
+import dev.martisv.userbehaviour.tracker.data.dataprovider.click.ClickEventHandler;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.click.MutliTouchEventHandler;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.click.UserClickHandler;
 import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.MetaDictionary;
@@ -14,20 +15,18 @@ public class UserBehaviourTracker {
     private final Application app;
 
     private final MutliTouchEventHandler multiTouchClickListener;
-    private final MetaDictionary metaDictionary;
-    private final UserClickHandler userClickHandler;
+    private final ClickEventHandler userClickHandler;
     private final ViewElementsDataProvider viewElementsDataProvider;
     private final SensorDataProvider sensorDataProvider;
 
     private UserBehaviourTracker(Builder builder) {
         this.app = builder.application;
 
-        this.viewElementsDataProvider = new ViewElementsDataProvider(app);
+        this.viewElementsDataProvider = new ViewElementsDataProvider(app, builder.metaDictionary);
         this.sensorDataProvider = new SensorDataProvider(app);
         this.userClickHandler = new UserClickHandler(viewElementsDataProvider, sensorDataProvider);
 
         this.multiTouchClickListener = new MutliTouchEventHandler(app, userClickHandler);
-        this.metaDictionary = builder.metaDictionary;
 
         startActivityLifecycleObserving();
     }

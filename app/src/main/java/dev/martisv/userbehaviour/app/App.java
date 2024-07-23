@@ -1,19 +1,10 @@
 package dev.martisv.userbehaviour.app;
 
-import android.app.Activity;
 import android.app.Application;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import org.json.JSONArray;
 
 import dev.martisv.userbehaviour.tracker.UserBehaviourTracker;
-import dev.martisv.userbehaviour.tracker.presentation.TrackerWindowCallback;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.MetaDictionary;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.ViewMetaProperty;
 
 public class App extends Application {
 
@@ -21,6 +12,10 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        new UserBehaviourTracker.Builder(this).build();
+        MetaDictionary metaDictionary = new MetaDictionary()
+                .add(R.id.recycler_view_button, new ViewMetaProperty("text", "Activity with RecyclerView"), new ViewMetaProperty("color", "purple"))
+                .add(R.id.text_view_bottom, new ViewMetaProperty("other", "this is important meta information"));
+
+        new UserBehaviourTracker.Builder(this).setMetaDictionary(metaDictionary).build();
     }
 }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.martisv.userbehaviour.tracker.data.dataprovider.click.TouchCoordinates;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.ViewMetaProperty;
 
 public class ViewElement {
     private int id;
@@ -15,6 +16,7 @@ public class ViewElement {
     private int width;
     private int height;
     private boolean isViewGroup;
+    private List<ViewMetaProperty> metaProperties;
     private List<ViewElement> childElements;
 
     public ViewElement(
@@ -26,6 +28,7 @@ public class ViewElement {
             int width,
             int height,
             boolean isViewGroup,
+            List<ViewMetaProperty> metaProperties,
             List<ViewElement> childElements
     ) {
         this.id = id;
@@ -36,6 +39,7 @@ public class ViewElement {
         this.width = width;
         this.height = height;
         this.isViewGroup = isViewGroup;
+        this.metaProperties = metaProperties;
         this.childElements = childElements;
     }
 
@@ -130,6 +134,10 @@ public class ViewElement {
 
     public int getHeight() {
         return height;
+    }
+
+    public List<ViewMetaProperty> getMetaProperties() {
+        return metaProperties;
     }
 
     public boolean isViewGroup() {
