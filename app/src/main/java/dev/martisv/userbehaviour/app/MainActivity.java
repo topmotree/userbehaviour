@@ -11,6 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import dev.martisv.userbehaviour.app.animationacivity.AnimationMainActivity;
 import dev.martisv.userbehaviour.app.recyclerviewactivity.RecyclerViewActivity;
 import dev.martisv.userbehaviour.tracker.UserBehaviourTracker;
 
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.recycler_view_button).setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.animation_activity).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AnimationMainActivity.class);
             startActivity(intent);
         });
     }

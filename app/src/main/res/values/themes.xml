@@ -3,6 +3,14 @@
     <style name="Base.Theme.Userbehaviour" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+        <!-- Set the transitions which are used for the entrance and exit of shared elements -->
+        <item name="android:windowSharedElementEnterTransition" tools:ignore="NewApi">
+            @transition/grid_detail_transition
+        </item>
+        <item name="android:windowSharedElementExitTransition" tools:ignore="NewApi">
+            @transition/grid_detail_transition
+        </item>
     </style>
 
     <style name="Theme.Userbehaviour" parent="Base.Theme.Userbehaviour" />
