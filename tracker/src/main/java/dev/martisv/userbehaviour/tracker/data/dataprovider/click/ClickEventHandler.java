@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.dataprovider.click;
+package dev.martisv.userbehaviour.tracker.data.dataprovider.click;
 
 import dev.martisv.userbehaviour.tracker.TouchCoordinates;
 

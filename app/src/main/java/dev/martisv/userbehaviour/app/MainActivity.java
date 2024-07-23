@@ -1,5 +1,6 @@
 package dev.martisv.userbehaviour.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,18 +11,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import dev.martisv.userbehaviour.app.recyclerviewactivity.RecyclerViewActivity;
 import dev.martisv.userbehaviour.tracker.UserBehaviourTracker;
 
 public class MainActivity extends AppCompatActivity {
 
-    private UserBehaviourTracker userBehaviourTracker;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        userBehaviourTracker = new UserBehaviourTracker
-//                .UserBehaviourTrackerBuilder(this)
-//                .build();
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
@@ -31,13 +27,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-
-
+        findViewById(R.id.recycler_view_button).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RecyclerViewActivity.class);
+            startActivity(intent);
+        });
     }
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        userBehaviourTracker.getTouchListener().onTouch(null, ev);
-//        return super.dispatchTouchEvent(ev);
-//    }
 }

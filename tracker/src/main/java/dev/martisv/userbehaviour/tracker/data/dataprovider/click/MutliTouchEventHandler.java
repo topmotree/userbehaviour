@@ -1,27 +1,25 @@
-package dev.martisv.userbehaviour.tracker.dataprovider.click;
+package dev.martisv.userbehaviour.tracker.data.dataprovider.click;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.PointF;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewConfiguration;
 
 import dev.martisv.userbehaviour.tracker.TouchCoordinates;
 
-public class MutliTouchClickListener implements View.OnTouchListener {
+public class MutliTouchEventHandler {
     private final int clickActionThreshold;
     private final ClickEventHandler clickEventHandler;
     private final SparseArray<PointF> startPoints = new SparseArray<>();
 
-    public MutliTouchClickListener(Context context, ClickEventHandler clickEventHandler) {
+    public MutliTouchEventHandler(Context context, ClickEventHandler clickEventHandler) {
         this.clickActionThreshold = ViewConfiguration.get(context).getScaledTouchSlop();
         this.clickEventHandler = clickEventHandler;
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    public boolean onTouch(View v, MotionEvent event) {
+    public void onTouch(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int pointerId = event.getPointerId(pointerIndex);
 
@@ -32,12 +30,13 @@ public class MutliTouchClickListener implements View.OnTouchListener {
                 startPoints.put(pointerId, startPointDown);
                 break;
             case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_POINTER_UP:
                 PointF startPoint = startPoints.get(pointerId);
                 if (startPoint != null) {
                     float endX = event.getX(pointerIndex);
                     float endY = event.getY(pointerIndex);
                     if (isClick(startPoint.x, endX, startPoint.y, endY)) {
-                        clickEventHandler.onClick(new TouchCoordinates(endX, endY));
+                        clickEventHandler.onClick(new TouchCoordinates((int) endX, (int) endY));
                     }
                     startPoints.remove(pointerId);
                 }
@@ -46,8 +45,6 @@ public class MutliTouchClickListener implements View.OnTouchListener {
                 startPoints.clear();
                 break;
         }
-
-        return true;
     }
 
     private boolean isClick(float startX, float endX, float startY, float endY) {

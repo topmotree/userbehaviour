@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.dataprovider.sensor;
+package dev.martisv.userbehaviour.tracker.data.dataprovider.sensor;
 
 import android.content.Context;
 import android.hardware.Sensor;

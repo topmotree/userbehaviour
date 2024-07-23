@@ -1,52 +1,61 @@
 package dev.martisv.userbehaviour.tracker;
 
-import android.app.Activity;
+import android.app.Application;
 import android.view.View;
 
-import dev.martisv.userbehaviour.tracker.dataprovider.click.MutliTouchClickListener;
-import dev.martisv.userbehaviour.tracker.dataprovider.metadictionary.MetaDictionary;
-import dev.martisv.userbehaviour.tracker.dataprovider.sensor.SensorDataProvider;
-import dev.martisv.userbehaviour.tracker.dataprovider.viewmap.ViewMapDataProvider;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.click.MutliTouchEventHandler;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.MetaDictionary;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorDataProvider;
+import dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement.ViewElementsDataProvider;
+import dev.martisv.userbehaviour.tracker.presentation.AppActivityLifecycleCallback;
 
 public class UserBehaviourTracker {
-    private MutliTouchClickListener multiTouchClickListener;
-    private MetaDictionary metaDictionary;
-    private UserClickHandler userClickHandler;
-    private ViewMapDataProvider viewMapDataProvider;
-    private SensorDataProvider sensorDataProvider;
+    private final Application app;
 
+    private final MutliTouchEventHandler multiTouchClickListener;
+    private final MetaDictionary metaDictionary;
+    private final UserClickHandler userClickHandler;
+    private final ViewElementsDataProvider viewElementsDataProvider;
+    private final SensorDataProvider sensorDataProvider;
 
+    private UserBehaviourTracker(Builder builder) {
+        this.app = builder.application;
 
-    private UserBehaviourTracker(UserBehaviourTrackerBuilder builder) {
+        this.viewElementsDataProvider = new ViewElementsDataProvider(app);
+        this.sensorDataProvider = new SensorDataProvider(app);
+        this.userClickHandler = new UserClickHandler(viewElementsDataProvider, sensorDataProvider);
 
+        this.multiTouchClickListener = new MutliTouchEventHandler(app, userClickHandler);
+        this.metaDictionary = builder.metaDictionary;
 
-        this.viewMapDataProvider = new ViewMapDataProvider(builder.activity);
-        this.sensorDataProvider = new SensorDataProvider(builder.activity);
-        this.userClickHandler = new UserClickHandler(viewMapDataProvider, sensorDataProvider);
-
-        this.multiTouchClickListener = new MutliTouchClickListener(builder.activity, userClickHandler);
-        this.metaDictionary = builder.userBehaviourTracker.metaDictionary;
+        startActivityLifecycleObserving();
     }
 
-    public View.OnTouchListener getTouchListener() {
+    public MutliTouchEventHandler getTouchEventHandler() {
         return multiTouchClickListener;
     }
 
     public void saveView(View view) {
-        viewMapDataProvider.saveViewInfo(view);
+        viewElementsDataProvider.saveViewInfo(view);
     }
 
-    public static class UserBehaviourTrackerBuilder {
-        private final Activity activity;
+    private void startActivityLifecycleObserving() {
+        AppActivityLifecycleCallback activityLifecycleCallback =
+                new AppActivityLifecycleCallback(this);
 
-        private UserBehaviourTracker userBehaviourTracker;
+        app.registerActivityLifecycleCallbacks(activityLifecycleCallback);
+    }
 
-        public UserBehaviourTrackerBuilder(Activity activity) {
-            this.activity = activity;
+    public static class Builder {
+        private final Application application;
+        private MetaDictionary metaDictionary;
+
+        public Builder(Application application) {
+            this.application = application;
         }
 
-        public UserBehaviourTrackerBuilder setMetaDictionary(MetaDictionary metaDictionary) {
-            userBehaviourTracker.metaDictionary = metaDictionary;
+        public Builder setMetaDictionary(MetaDictionary metaDictionary) {
+            this.metaDictionary = metaDictionary;
             return this;
         }
 

@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.app;
+package dev.martisv.userbehaviour.tracker.presentation;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -15,16 +15,15 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.Nullable;
 
-//TODO correct way to handle all touches from application level
-//https://stackoverflow.com/a/25842377
-public class MyWindowCallback implements Window.Callback {
+import dev.martisv.userbehaviour.tracker.UserBehaviourTracker;
 
-    private TouchEventHandler touchEventHandler;
-    Window.Callback localCallback;
+public class TrackerWindowCallback implements Window.Callback {
+    final Window.Callback localCallback;
+    final UserBehaviourTracker tracker;
 
-    public MyWindowCallback(Window.Callback localCallback, TouchEventHandler touchEventHandler) {
+    public TrackerWindowCallback(Window.Callback localCallback, UserBehaviourTracker tracker) {
         this.localCallback = localCallback;
-        this.touchEventHandler = touchEventHandler;
+        this.tracker = tracker;
     }
 
     @Override
@@ -40,7 +39,7 @@ public class MyWindowCallback implements Window.Callback {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        touchEventHandler.onTouch(null, event);
+        tracker.getTouchEventHandler().onTouch(event);
         return localCallback.dispatchTouchEvent(event);
     }
 
@@ -150,6 +149,5 @@ public class MyWindowCallback implements Window.Callback {
     @Override
     public void onActionModeFinished(ActionMode mode) {
         localCallback.onActionModeFinished(mode);
-
     }
 }

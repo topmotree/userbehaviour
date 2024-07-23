@@ -6,31 +6,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TouchCoordinates {
-    private float x;
-    private float y;
+    private int x;
+    private int y;
 
-    public TouchCoordinates(float x, float y) {
+    public TouchCoordinates(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    public float getX() {
+    public int getX() {
         return x;
     }
 
-    public float getY() {
+    public int getY() {
         return y;
     }
 
-    public JSONObject toJson() {
-        try {
-            JSONObject json = new JSONObject();
-            json.put("x", x);
-            json.put("y", y);
-            return json;
-        } catch (JSONException e) {
-            Log.e("TouchCoordinates", "Error creating JSON object", e);
-            return null;
-        }
+    @Override
+    public String toString() {
+        return "TouchCoordinates{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
     }
 }
