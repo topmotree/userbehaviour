@@ -1,6 +1,9 @@
 
 package dev.martisv.userbehaviour.tracker.datacollector.view;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +46,28 @@ public class ViewElement {
         this.childElements = childElements;
     }
 
+    public List<ViewElement> getChildElements() {
+        List<ViewElement> allChildElements = new ArrayList<>();
+
+        if (this.childElements != null) {
+            for (ViewElement child : this.childElements) {
+                // Directly add the child if it is not a ViewGroup
+                if (!child.isViewGroup) {
+                    allChildElements.add(child);
+                } else {
+                    // If the child is a ViewGroup, recursively add its non-ViewGroup children
+                    List<ViewElement> nonViewGroupChildren = child.getChildElements();
+                    for (ViewElement nonViewGroupChild : nonViewGroupChildren) {
+                        if (!nonViewGroupChild.isViewGroup) {
+                            allChildElements.add(nonViewGroupChild);
+                        }
+                    }
+                }
+            }
+        }
+        return allChildElements;
+    }
+
     public ViewElement findChildElement(TouchCoordinates touchCoordinates) {
         if (isWithinBounds(touchCoordinates)) {
             for (ViewElement childElement : childElements) {
@@ -66,29 +91,7 @@ public class ViewElement {
         return null;
     }
 
-    public List<ViewElement> getChildElements() {
-        List<ViewElement> allChildElements = new ArrayList<>();
-
-        if (this.childElements != null) {
-            for (ViewElement child : this.childElements) {
-                // Directly add the child if it is not a ViewGroup
-                if (!child.isViewGroup()) {
-                    allChildElements.add(child);
-                } else {
-                    // If the child is a ViewGroup, recursively add its non-ViewGroup children
-                    List<ViewElement> nonViewGroupChildren = child.getChildElements();
-                    for (ViewElement nonViewGroupChild : nonViewGroupChildren) {
-                        if (!nonViewGroupChild.isViewGroup()) {
-                            allChildElements.add(nonViewGroupChild);
-                        }
-                    }
-                }
-            }
-        }
-        return allChildElements;
-    }
-
-    private boolean isWithinBounds(TouchCoordinates touchCoordinates) {
+    public boolean isWithinBounds(TouchCoordinates touchCoordinates) {
         return touchCoordinates.getX() >= this.x && touchCoordinates.getX() <= this.x + this.width &&
                 touchCoordinates.getY() >= this.y && touchCoordinates.getY() <= this.y + this.height;
     }
@@ -106,6 +109,18 @@ public class ViewElement {
                 ", isViewGroup=" + isViewGroup +
                 ", childElements=" + childElements +
                 '}';
+    }
+
+    public JSONObject toJson() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put("type", type);
+        json.put("id", id);
+        json.put("x", x);
+        json.put("y", y);
+        json.put("width", width);
+        json.put("height", height);
+        json.put("meta", ViewMetaProperty.listToStringOrNull(metaProperties));
+        return json;
     }
 
     public int getId() {
@@ -136,11 +151,11 @@ public class ViewElement {
         return height;
     }
 
-    public List<ViewMetaProperty> getMetaProperties() {
-        return metaProperties;
-    }
-
     public boolean isViewGroup() {
         return isViewGroup;
+    }
+
+    public List<ViewMetaProperty> getMetaProperties() {
+        return metaProperties;
     }
 }

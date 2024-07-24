@@ -27,7 +27,11 @@ public class ViewMetaProperty {
                 '}';
     }
 
-    public static String listToString(List<ViewMetaProperty> list) {
+    public static String listToStringOrNull(List<ViewMetaProperty> list) {
+        if (list.isEmpty()){
+            return null;
+        }
+
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < list.size(); i++) {
             sb.append(list.get(i).key);

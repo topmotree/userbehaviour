@@ -6,12 +6,12 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
-public class MutliTouchDataCollector implements AndroidTouchEventHandler {
+public class MutliClickEventHandler implements AndroidTouchEventHandler {
     private final int clickActionThreshold;
     private final TrackerClickEventHandler clickEventHandler;
     private final SparseArray<PointF> startPoints = new SparseArray<>();
 
-    public MutliTouchDataCollector(Context context, TrackerClickEventHandler clickEventHandler) {
+    public MutliClickEventHandler(Context context, TrackerClickEventHandler clickEventHandler) {
         this.clickActionThreshold = ViewConfiguration.get(context).getScaledTouchSlop();
         this.clickEventHandler = clickEventHandler;
     }

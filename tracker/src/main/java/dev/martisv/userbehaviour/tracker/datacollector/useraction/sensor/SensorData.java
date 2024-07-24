@@ -1,6 +1,9 @@
-package dev.martisv.userbehaviour.tracker.datacollector.sensor;
+package dev.martisv.userbehaviour.tracker.datacollector.useraction.sensor;
 
 import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SensorData {
     private float accelerometerX, accelerometerY, accelerometerZ;
@@ -26,27 +29,20 @@ public class SensorData {
         }
     }
 
-    public float getAccelerometerX() {
-        return accelerometerX;
-    }
+    public JSONObject toJson() throws JSONException {
+        JSONObject json = new JSONObject();
+        JSONObject accelerometerJson = new JSONObject();
+        accelerometerJson.put("x", this.accelerometerX);
+        accelerometerJson.put("y", this.accelerometerY);
+        accelerometerJson.put("z", this.accelerometerZ);
 
-    public float getAccelerometerY() {
-        return accelerometerY;
-    }
+        JSONObject gyroscopeJson = new JSONObject();
+        gyroscopeJson.put("x", this.gyroscopeX);
+        gyroscopeJson.put("y", this.gyroscopeY);
+        gyroscopeJson.put("z", this.gyroscopeZ);
 
-    public float getAccelerometerZ() {
-        return accelerometerZ;
-    }
-
-    public float getGyroscopeX() {
-        return gyroscopeX;
-    }
-
-    public float getGyroscopeY() {
-        return gyroscopeY;
-    }
-
-    public float getGyroscopeZ() {
-        return gyroscopeZ;
+        json.put("accelerometer", accelerometerJson);
+        json.put("gyroscope", gyroscopeJson);
+        return json;
     }
 }

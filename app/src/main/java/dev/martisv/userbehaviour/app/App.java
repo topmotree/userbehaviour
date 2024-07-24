@@ -5,6 +5,7 @@ import android.app.Application;
 import dev.martisv.userbehaviour.tracker.UserBehaviourTracker;
 import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaInfoDictionary;
 import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaProperty;
+import dev.martisv.userbehaviour.tracker.utils.TrackerOptions;
 
 public class App extends Application {
 
@@ -16,6 +17,10 @@ public class App extends Application {
                 .add(R.id.recycler_view_button, new ViewMetaProperty("text", "Activity with RecyclerView"), new ViewMetaProperty("color", "purple"))
                 .add(R.id.text_view_bottom, new ViewMetaProperty("other", "this is important meta information"));
 
-        new UserBehaviourTracker.Builder(this).setMetaDictionary(viewMetaInfoDictionary).build();
+        new UserBehaviourTracker
+                .Builder(this)
+                .setMetaDictionary(viewMetaInfoDictionary)
+                .setOptions(new TrackerOptions(true, false, false))
+                .build();
     }
 }
