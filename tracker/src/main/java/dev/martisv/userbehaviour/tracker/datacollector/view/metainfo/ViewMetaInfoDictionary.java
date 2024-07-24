@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary;
+package dev.martisv.userbehaviour.tracker.datacollector.view.metainfo;
 
 import androidx.annotation.IdRes;
 
@@ -8,10 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MetaDictionary {
+public class ViewMetaInfoDictionary {
     private final Map<Integer, List<ViewMetaProperty>> metaDictionary = new HashMap<>();
 
-    public MetaDictionary add(@IdRes Integer id, ViewMetaProperty... properties) {
+    public ViewMetaInfoDictionary add(@IdRes Integer id, ViewMetaProperty... properties) {
         metaDictionary.put(id, Arrays.asList(properties));
         return this;
     }

@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.presentation;
+package dev.martisv.userbehaviour.tracker.android.activity;
 
 import android.app.Activity;
 import android.app.Application;
@@ -10,22 +10,25 @@ import android.view.Window;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import dev.martisv.userbehaviour.tracker.UserBehaviourTracker;
+import dev.martisv.userbehaviour.tracker.android.touch.TrackerWindowCallback;
+import dev.martisv.userbehaviour.tracker.datacollector.view.ViewElementsSaver;
 
 public class AppActivityLifecycleCallback implements Application.ActivityLifecycleCallbacks {
-    final UserBehaviourTracker tracker;
+    final ViewElementsSaver viewElementsSaver;
+    final AndroidTouchEventHandler touchEventHandler;
     View rootView;
     ViewTreeObserver.OnDrawListener listener;
 
-    public AppActivityLifecycleCallback(UserBehaviourTracker tracker) {
-        this.tracker = tracker;
+    public AppActivityLifecycleCallback(ViewElementsSaver viewElementsSaver, AndroidTouchEventHandler touchEventHandler) {
+        this.viewElementsSaver = viewElementsSaver;
+        this.touchEventHandler = touchEventHandler;
     }
 
     @Override
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
         final Window activityWindow = activity.getWindow();
         final Window.Callback localCallback = activityWindow.getCallback();
-        activityWindow.setCallback(new TrackerWindowCallback(localCallback, tracker));
+        activityWindow.setCallback(new TrackerWindowCallback(localCallback, touchEventHandler));
     }
 
     @Override
@@ -37,7 +40,7 @@ public class AppActivityLifecycleCallback implements Application.ActivityLifecyc
     public void onActivityResumed(@NonNull Activity activity) {
         rootView = activity.findViewById(android.R.id.content);
         listener = () -> {
-            tracker.saveView(rootView);
+            viewElementsSaver.saveView(rootView);
         };
         rootView.getViewTreeObserver().addOnDrawListener(listener);
     }

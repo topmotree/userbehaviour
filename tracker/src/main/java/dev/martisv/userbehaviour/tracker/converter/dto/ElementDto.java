@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.saver.dto;
+package dev.martisv.userbehaviour.tracker.converter.dto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -6,8 +6,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.ViewMetaProperty;
-import dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement.ViewElement;
+import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaProperty;
+import dev.martisv.userbehaviour.tracker.datacollector.view.ViewElement;
 
 public class ElementDto {
     private String type;

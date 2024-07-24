@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary;
+package dev.martisv.userbehaviour.tracker.datacollector.view.metainfo;
 
 import java.util.List;
 

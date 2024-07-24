@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.dataprovider.click;
+package dev.martisv.userbehaviour.tracker.datacollector.click;
 
 public class TouchCoordinates {
     private int x;

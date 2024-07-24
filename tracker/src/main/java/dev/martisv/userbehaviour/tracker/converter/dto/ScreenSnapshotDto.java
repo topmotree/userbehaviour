@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.saver.dto;
+package dev.martisv.userbehaviour.tracker.converter.dto;
 
 import android.util.Log;
 
@@ -9,9 +9,9 @@ import org.json.JSONObject;
 import java.util.Collections;
 import java.util.List;
 
-import dev.martisv.userbehaviour.tracker.data.dataprovider.click.TouchCoordinates;
-import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorData;
-import dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement.ViewElement;
+import dev.martisv.userbehaviour.tracker.datacollector.click.TouchCoordinates;
+import dev.martisv.userbehaviour.tracker.datacollector.sensor.SensorData;
+import dev.martisv.userbehaviour.tracker.datacollector.view.ViewElement;
 
 public class ScreenSnapshotDto {
     private int screenWidth;

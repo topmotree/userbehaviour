@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.saver.dto;
+package dev.martisv.userbehaviour.tracker.converter.dto;
 
 import org.json.JSONException;
 import org.json.JSONObject;

@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.dataprovider.viewelement;
+package dev.martisv.userbehaviour.tracker.datacollector.view;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,22 +9,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.MetaDictionary;
-import dev.martisv.userbehaviour.tracker.data.dataprovider.metadictionary.ViewMetaProperty;
+import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaInfoDictionary;
+import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaProperty;
 
-public class ViewElementsDataProvider {
+public class ViewElementsDataCollector implements ViewElementsSaver {
     private final Context context;
-    private final MetaDictionary metaDictionary;
+    private final ViewMetaInfoDictionary viewMetaInfoDictionary;
 
     private ViewElement curentViewElement;
 
     //TODO how to handle situations in JAVA when MetaDictionary is not provided??
-    public ViewElementsDataProvider(Context context, MetaDictionary metaDictionary) {
+    public ViewElementsDataCollector(Context context, ViewMetaInfoDictionary viewMetaInfoDictionary) {
         this.context = context;
-        this.metaDictionary = metaDictionary;
+        this.viewMetaInfoDictionary = viewMetaInfoDictionary;
     }
 
-    public void saveViewInfo(View view) {
+    @Override
+    public void saveView(View view) {
         curentViewElement = fromView(view);
 
         //TODO remove log
@@ -47,8 +48,8 @@ public class ViewElementsDataProvider {
         boolean isViewGroup = view instanceof ViewGroup;
 
         List<ViewMetaProperty> metaProperties = Collections.emptyList();
-        if (metaDictionary != null) {
-            metaProperties = metaDictionary.get(id);
+        if (viewMetaInfoDictionary != null) {
+            metaProperties = viewMetaInfoDictionary.get(id);
         }
 
         List<ViewElement> childElements = null;

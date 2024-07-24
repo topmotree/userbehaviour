@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.dataprovider.click;
+package dev.martisv.userbehaviour.tracker.datacollector.click;
 
 import android.content.Context;
 import android.graphics.PointF;
@@ -6,17 +6,25 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.ViewConfiguration;
 
-public class MutliTouchEventHandler {
+import dev.martisv.userbehaviour.tracker.android.activity.AndroidTouchEventHandler;
+import dev.martisv.userbehaviour.tracker.android.touch.ClickEventHandler;
+
+public class MutliTouchDataCollector implements AndroidTouchEventHandler {
     private final int clickActionThreshold;
     private final ClickEventHandler clickEventHandler;
     private final SparseArray<PointF> startPoints = new SparseArray<>();
 
-    public MutliTouchEventHandler(Context context, ClickEventHandler clickEventHandler) {
+    public MutliTouchDataCollector(Context context, ClickEventHandler clickEventHandler) {
         this.clickActionThreshold = ViewConfiguration.get(context).getScaledTouchSlop();
         this.clickEventHandler = clickEventHandler;
     }
 
+    @Override
     public void onTouch(MotionEvent event) {
+        handleTouch(event);
+    }
+
+    private void handleTouch(MotionEvent event) {
         int pointerIndex = event.getActionIndex();
         int pointerId = event.getPointerId(pointerIndex);
 

@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.data.dataprovider.sensor;
+package dev.martisv.userbehaviour.tracker.datacollector.sensor;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -7,13 +7,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.util.Log;
 
-public class SensorDataProvider implements SensorEventListener {
+public class SensorDataCollector implements SensorEventListener {
     private static SensorManager instance;
     private Sensor accelerometer;
     private Sensor gyroscope;
     private SensorData currentData;
 
-    public SensorDataProvider(Context context) {
+    public SensorDataCollector(Context context) {
         SensorManager sensorManager = (android.hardware.SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);

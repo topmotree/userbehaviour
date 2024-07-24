@@ -1,8 +1,6 @@
-package dev.martisv.userbehaviour.tracker.data.dataprovider.sensor;
+package dev.martisv.userbehaviour.tracker.datacollector.sensor;
 
 import android.util.Log;
-
-import org.json.JSONObject;
 
 public class SensorData {
     private float accelerometerX, accelerometerY, accelerometerZ;

@@ -1,9 +1,9 @@
-package dev.martisv.userbehaviour.tracker.data.saver.dto;
+package dev.martisv.userbehaviour.tracker.converter.dto;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dev.martisv.userbehaviour.tracker.data.dataprovider.sensor.SensorData;
+import dev.martisv.userbehaviour.tracker.datacollector.sensor.SensorData;
 
 public class SensorDataDto {
     private float accelerometerX, accelerometerY, accelerometerZ;
