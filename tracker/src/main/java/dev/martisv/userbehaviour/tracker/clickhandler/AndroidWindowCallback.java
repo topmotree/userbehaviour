@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.android.touch;
+package dev.martisv.userbehaviour.tracker.clickhandler;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -15,13 +15,11 @@ import android.view.accessibility.AccessibilityEvent;
 
 import androidx.annotation.Nullable;
 
-import dev.martisv.userbehaviour.tracker.android.activity.AndroidTouchEventHandler;
-
-public class TrackerWindowCallback implements Window.Callback {
+public class AndroidWindowCallback implements Window.Callback {
     final Window.Callback localCallback;
     final AndroidTouchEventHandler touchHandler;
 
-    public TrackerWindowCallback(Window.Callback localCallback, AndroidTouchEventHandler touchHandler) {
+    public AndroidWindowCallback(Window.Callback localCallback, AndroidTouchEventHandler touchHandler) {
         this.localCallback = localCallback;
         this.touchHandler = touchHandler;
     }

@@ -4,7 +4,7 @@ package dev.martisv.userbehaviour.tracker.datacollector.view;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.martisv.userbehaviour.tracker.datacollector.click.TouchCoordinates;
+import dev.martisv.userbehaviour.tracker.clickhandler.TouchCoordinates;
 import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaProperty;
 
 public class ViewElement {

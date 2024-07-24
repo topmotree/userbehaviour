@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.android.activity;
+package dev.martisv.userbehaviour.tracker.clickhandler;
 
 import android.view.MotionEvent;
 

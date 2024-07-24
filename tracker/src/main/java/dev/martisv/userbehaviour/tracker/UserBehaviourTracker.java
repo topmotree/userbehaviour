@@ -3,17 +3,17 @@ package dev.martisv.userbehaviour.tracker;
 import android.app.Application;
 import android.util.Log;
 
-import dev.martisv.userbehaviour.tracker.android.touch.ClickEventHandler;
+import dev.martisv.userbehaviour.tracker.clickhandler.TrackerClickEventHandler;
 import dev.martisv.userbehaviour.tracker.converter.dto.ScreenSnapshotDto;
-import dev.martisv.userbehaviour.tracker.datacollector.click.MutliTouchDataCollector;
-import dev.martisv.userbehaviour.tracker.datacollector.click.TouchCoordinates;
+import dev.martisv.userbehaviour.tracker.clickhandler.MutliTouchDataCollector;
+import dev.martisv.userbehaviour.tracker.clickhandler.TouchCoordinates;
 import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaInfoDictionary;
 import dev.martisv.userbehaviour.tracker.datacollector.sensor.SensorData;
 import dev.martisv.userbehaviour.tracker.datacollector.sensor.SensorDataCollector;
 import dev.martisv.userbehaviour.tracker.datacollector.view.ViewElement;
 import dev.martisv.userbehaviour.tracker.datacollector.view.ViewElementsDataCollector;
 import dev.martisv.userbehaviour.tracker.converter.ScreenSnapshotDtoConverter;
-import dev.martisv.userbehaviour.tracker.android.activity.AppActivityLifecycleCallback;
+import dev.martisv.userbehaviour.tracker.activitylifecycle.AppActivityLifecycleCallback;
 
 public class UserBehaviourTracker {
     private final Application app;
@@ -23,13 +23,13 @@ public class UserBehaviourTracker {
 
     private UserBehaviourTracker(Builder builder) {
         this.app = builder.application;
-        this.viewElementsDataCollector = new ViewElementsDataCollector(app, builder.viewMetaInfoDictionary);
+        this.viewElementsDataCollector = new ViewElementsDataCollector(app, builder.viewMetaDictionary);
         this.sensorDataCollector = new SensorDataCollector(app);
-        this.multiTouchClickListener = new MutliTouchDataCollector(app, new ClickHandler());
+        this.multiTouchClickListener = new MutliTouchDataCollector(app, new TrackerClickHandler());
         startActivityLifecycleObserving();
     }
 
-    private class ClickHandler implements ClickEventHandler {
+    private class TrackerClickHandler implements TrackerClickEventHandler {
         @Override
         public void onClick(TouchCoordinates touchCoordinates) {
             ViewElement viewElement = viewElementsDataCollector.getCurrentViewElement();
@@ -38,7 +38,7 @@ public class UserBehaviourTracker {
 
             final ScreenSnapshotDto dto = ScreenSnapshotDtoConverter.convert(viewElement, touchCoordinates, sensorData, clickTimestamp);
 
-            // Next step: send dto to server. Currently just logging it.
+            // Later: send dto to server. Currently just logging it.
             Log.d("UserBehaviourTracker", "onClick: " + dto.toJson().toString());
         }
     }
@@ -52,14 +52,14 @@ public class UserBehaviourTracker {
 
     public static class Builder {
         private final Application application;
-        private ViewMetaInfoDictionary viewMetaInfoDictionary;
+        private ViewMetaInfoDictionary viewMetaDictionary;
 
         public Builder(Application application) {
             this.application = application;
         }
 
-        public Builder setMetaDictionary(ViewMetaInfoDictionary viewMetaInfoDictionary) {
-            this.viewMetaInfoDictionary = viewMetaInfoDictionary;
+        public Builder setMetaDictionary(ViewMetaInfoDictionary viewMetaDictionary) {
+            this.viewMetaDictionary = viewMetaDictionary;
             return this;
         }
 

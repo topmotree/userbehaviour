@@ -3,7 +3,7 @@ package dev.martisv.userbehaviour.tracker.converter.dto;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import dev.martisv.userbehaviour.tracker.datacollector.click.TouchCoordinates;
+import dev.martisv.userbehaviour.tracker.clickhandler.TouchCoordinates;
 import dev.martisv.userbehaviour.tracker.datacollector.sensor.SensorData;
 import dev.martisv.userbehaviour.tracker.datacollector.view.ViewElement;
 

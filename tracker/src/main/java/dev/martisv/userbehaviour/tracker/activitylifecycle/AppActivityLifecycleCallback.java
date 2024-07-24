@@ -1,4 +1,4 @@
-package dev.martisv.userbehaviour.tracker.android.activity;
+package dev.martisv.userbehaviour.tracker.activitylifecycle;
 
 import android.app.Activity;
 import android.app.Application;
@@ -10,7 +10,8 @@ import android.view.Window;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import dev.martisv.userbehaviour.tracker.android.touch.TrackerWindowCallback;
+import dev.martisv.userbehaviour.tracker.clickhandler.AndroidTouchEventHandler;
+import dev.martisv.userbehaviour.tracker.clickhandler.AndroidWindowCallback;
 import dev.martisv.userbehaviour.tracker.datacollector.view.ViewElementsSaver;
 
 public class AppActivityLifecycleCallback implements Application.ActivityLifecycleCallbacks {
@@ -28,7 +29,7 @@ public class AppActivityLifecycleCallback implements Application.ActivityLifecyc
     public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
         final Window activityWindow = activity.getWindow();
         final Window.Callback localCallback = activityWindow.getCallback();
-        activityWindow.setCallback(new TrackerWindowCallback(localCallback, touchEventHandler));
+        activityWindow.setCallback(new AndroidWindowCallback(localCallback, touchEventHandler));
     }
 
     @Override
