@@ -66,7 +66,7 @@ public class UserBehaviourTracker {
 
     public static class Builder {
         private final Application application;
-        private ViewMetaInfoDictionary viewMetaDictionary;
+        private ViewMetaInfoDictionary viewMetaDictionary = new ViewMetaInfoDictionary();
         private final List<DataCollector> dataCollectors = new ArrayList<>();
         private TrackerOptions options = UserBehaviourTracker.getOptions();
 

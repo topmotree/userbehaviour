@@ -25,7 +25,6 @@ public class ViewElementsDataCollector implements ViewElementsSaver, DataCollect
 
     private ViewElement curentViewElement;
 
-    //TODO how to handle situations in JAVA when MetaDictionary is not provided??
     public ViewElementsDataCollector(Context context, ViewMetaInfoDictionary viewMetaInfoDictionary) {
         this.context = context;
         this.viewMetaInfoDictionary = viewMetaInfoDictionary;
