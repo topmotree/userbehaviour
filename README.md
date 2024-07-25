@@ -67,3 +67,9 @@ public class App extends Application {
 * datacollector - сбора данных о пользовательском поведении
 * repository - репозиторий для хранения или отправки данных. На данный момент используется для логирования кликов
 * utils - вспомогательные классы
+
+## Дополнительно 
+* Пример приложения с инициализацией модуля можно найти [здесь](app/src/main/java/dev/martisv/userbehaviour/app/App.java) или просто запустить приложение из Android Studio.
+
+##TODO 
+* Добавить тесты (Unit, Instrumented)
