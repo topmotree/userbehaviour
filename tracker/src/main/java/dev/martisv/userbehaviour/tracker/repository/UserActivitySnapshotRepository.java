@@ -12,6 +12,10 @@ import dev.martisv.userbehaviour.tracker.UserBehaviourTracker;
 import dev.martisv.userbehaviour.tracker.datacollector.DataCollector;
 import dev.martisv.userbehaviour.tracker.utils.ScreenSizeContainer;
 
+/**
+ * Currently this class is more like a stub. It should be used to save the snapshots in a database or send them to a server.
+ * So far just logs the snapshots and saves them in a list.
+ * */
 public class UserActivitySnapshotRepository {
     private static final List<JSONObject> userActivitySnapshots = new ArrayList<>();
 

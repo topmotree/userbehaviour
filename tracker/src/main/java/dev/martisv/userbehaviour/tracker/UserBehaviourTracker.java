@@ -45,19 +45,22 @@ public class UserBehaviourTracker {
         dataCollectors.addAll(builder.dataCollectors);
     }
 
-    private class TrackerClickHandler implements TrackerClickEventHandler {
-        @Override
-        synchronized public void onClick(TouchCoordinates touchCoordinates) {
-            userActionDataCollector.saveUserClick(touchCoordinates);
-            UserActivitySnapshotRepository.save(screenSizeContainer, dataCollectors);
-        }
-    }
-
     private void startActivityLifecycleObserving() {
         AppActivityLifecycleCallback activityLifecycleCallback =
                 new AppActivityLifecycleCallback(viewElementsDataCollector, multiTouchClickListener);
 
         app.registerActivityLifecycleCallbacks(activityLifecycleCallback);
+    }
+
+    /**
+     * designed to encapsulate click event handling and preventing the exposure of public methods.
+     */
+    private class TrackerClickHandler implements TrackerClickEventHandler {
+        @Override
+        public void onClick(TouchCoordinates touchCoordinates) {
+            userActionDataCollector.saveUserClick(touchCoordinates);
+            UserActivitySnapshotRepository.save(screenSizeContainer, dataCollectors);
+        }
     }
 
     public static TrackerOptions getOptions() {

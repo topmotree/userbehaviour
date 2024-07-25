@@ -22,8 +22,7 @@ import dev.martisv.userbehaviour.tracker.datacollector.view.metainfo.ViewMetaPro
 public class ViewElementsDataCollector implements ViewElementsSaver, DataCollector, ClickedElementFinder {
     private final Context context;
     private final ViewMetaInfoDictionary viewMetaInfoDictionary;
-
-    private ViewElement curentViewElement;
+    private ViewElement current;
 
     public ViewElementsDataCollector(Context context, ViewMetaInfoDictionary viewMetaInfoDictionary) {
         this.context = context;
@@ -32,10 +31,10 @@ public class ViewElementsDataCollector implements ViewElementsSaver, DataCollect
 
     @Override
     public void saveView(View view) {
-        curentViewElement = fromView(view);
+        current = fromView(view);
 
         if (UserBehaviourTracker.getOptions().isPrintViewElements()) {
-            Log.d("ViewMapDataProvider", curentViewElement.toString());
+            Log.d("ViewElementsDataCollector", current.toString());
         }
     }
 
@@ -85,13 +84,9 @@ public class ViewElementsDataCollector implements ViewElementsSaver, DataCollect
         }
     }
 
-    public ViewElement getCurrentViewElement() {
-        return curentViewElement;
-    }
-
     @Override
     public String findClickedElementId(TouchCoordinates touchCoordinates) {
-        ViewElement childElement = curentViewElement.findChildElement(touchCoordinates);
+        ViewElement childElement = current.findChildElement(touchCoordinates);
         if (childElement != null) {
             return childElement.getElementId();
         } else {
@@ -106,7 +101,7 @@ public class ViewElementsDataCollector implements ViewElementsSaver, DataCollect
 
     @Override
     public JSONArray getJsonArray() {
-        List<ViewElement> elements = curentViewElement.getChildElements();
+        List<ViewElement> elements = current.getChildElements();
         JSONArray jsonArray = new JSONArray();
 
         JSONArray elementsJson = new JSONArray();
