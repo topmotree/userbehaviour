@@ -71,5 +71,5 @@ public class App extends Application {
 ## Дополнительно 
 * Пример приложения с инициализацией модуля можно найти [здесь](app/src/main/java/dev/martisv/userbehaviour/app/App.java) или просто запустить приложение из Android Studio.
 
-##TODO 
+## TODO 
 * Добавить тесты (Unit, Instrumented)
